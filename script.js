@@ -75,6 +75,27 @@ function showQuestions(){
         button.innerHTML=answers.text;
         button.classList.add("btn");
         abtns.appendChild(button);
+        if(answers.correct){
+          button.dataset.correct=answers.correct;
+        }
+        button.addEventListener("click",(e)=>{
+          const sel=e.target;
+          const iscorr=sel.dataset.correct==="true";
+          if(iscorr){
+            sel.classList.add("correct");
+            score++;
+          }else{
+            sel.classList.add("incorrect");
+          }
+
+          Array.from(abtns.children).forEach(button=>{
+            if(button.dataset.correct==="true"){
+              button.classList.add("correct");
+            }
+            button.disabled=true;
+          });
+          next.style.display="block";
+        })
     })
 }
 
@@ -85,11 +106,19 @@ const resetState=()=>{
   }
 
 }
-// const resetState=()=>{
-//    next.style.display=none;
-//    while(abtns.firstChild){
-//      abtns.removeChild(abtns)
-//    }
-
-// }
+next.addEventListener("click",()=>{
+  if(currentindex < questions.length){
+    currentindex++;
+    if (currentindex < questions.length){
+      showQuestions();
+    }else{
+      resetState();
+      dques.innerHTML=`your is ${score} out of ${questions.length}!!`;
+      next.innerHTML="play again";
+      next.style.display="block";
+    }
+  }else{
+    startquiz();
+  }
+})
 startquiz();

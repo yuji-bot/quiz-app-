@@ -44,10 +44,13 @@ body{
     height: 2rem;
     transition: 1s;
 }
-.ans button:hover{
+.ans button:hover:not([disabled]){
     background: black;
     cursor: pointer;
     color: white;
+}
+.ans button:disabled{
+    cursor: no-drop;
 }
 .quiz{
     width: 100%;
@@ -68,4 +71,11 @@ body{
 #next:hover{
     background: red;
     color: white;
+}
+
+.correct{
+    background: greenyellow;
+}
+.incorrect{
+    background: red;
 }
